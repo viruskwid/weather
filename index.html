@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    <div id="result" style="width: 100%; height: 100vh; background-color: rgb(63, 167, 242);" class="container-fluid">
+      
+
+    </div>
+</body>
+<script>
+    
+    const weatherDetails = async ()=>{
+        console.log("inside getWeather");
+        // api call
+        const response = await fetch ("https://api.openweathermap.org/data/2.5/weather?q=kakkanad&appid=8ac5c4d57ba6a4b3dfcf622700447b1e&units=metric")
+        const weather = await response.json()
+        const name = weather.name
+        const temp = weather.main.temp
+        const feelsLike = weather.main.feels_like
+        const country = weather.sys.country
+        const humidity = weather.main.humidity
+        const wind = weather.wind.speed
+        const pressure = weather.main.pressure
+
+        result.innerHTML =`
+        
+        <div style="width: 100%; height: 100vh; position: relative; background-image: url(https://c4.wallpaperflare.com/wallpaper/382/243/767/glowing-hot-air-balloons-wallpaper-preview.jpg); background-size: cover;" class="container">
+            <h2 style="position: absolute; top: 10px; left: 10px;">WEATHER</h2>
+            <div style="width: 300px; height: 200px; color: black; position: absolute; bottom: 0;">
+                <h1>${temp}</h1>
+                <p>Feel like ${feelsLike}</p>
+                <div class="mt-3">
+                    <h3>${name}</h3>
+                    <p id="clock">10:36 - Tuesday, 22 Oct '19</p>
+                </div>
+            </div>
+
+            <div style="width: 300px; height: 600px; background-color: blueviolet; position: absolute; right: 0px; background-color: rgb(82, 81, 81);">
+                <input style="background-color: rgb(57, 57, 57); opacity: 80%; color: #fff; border: none; border-bottom: 1px solid #fff;" type="text" placeholder="${name}">
+                <input style="border: none;" type="button" value="SEARCH">
+                <hr class="mt-5" style="color: #fff;">
+                <div class="mt-3 ms-2">
+                  <h6 style="color: #fff;">Weather Details</h6>
+                  <p class="mt-4" style="color: #fff;">Country</p>
+                   <p class="mt2" style="color: black;">${country}</p>
+                   <p class="mt-4" style="color: #fff;">Humidity</p>
+                   <p class="mt-2" style="color: black;">${humidity} % </p>
+                   <p class="mt-4" style="color: #fff;">Wind</p>
+                   <p class="mt-2" style="color: black;">${wind} kmph</p>
+                   <p class="mt-4" style="color: #fff;">Pressure</p>
+                   <p class="mt-2" style="color: black;">${pressure}</p>
+                </div>
+                <hr class="mt-4" style="color: #fff;">
+
+
+            </div>
+
+        </div>
+
+        
+        
+        `
+
+
+        console.log(name);
+        console.log(temp);
+        console.log(feelsLike);
+        console.log(country);
+        console.log(humidity);
+        console.log(wind);
+        console.log(pressure);
+    }
+    weatherDetails()
+
+    const getTimeData=()=>{
+        const localTime= new Date()
+        const hours=localTime.getHours()
+        const minutes=localTime.getMinutes()
+        const seconds=localTime.getSeconds()
+
+        const displayTime = hours>=12? `${hours}:${minutes}:${seconds} PM`:` ${hours}:${minutes}:${seconds} AM`
+        clock.innerHTML=displayTime
+        `
+        <p id="clock">HH:MM:DD</p>
+
+        `
+    }
+    getTimeData()
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</html>
